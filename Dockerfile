@@ -1,7 +1,3 @@
-# Dockerfile.final
-# ==============================================================================
-# Final version: Re-adds essential EGL/OpenGL libraries for PyOpenGL to work.
-# ==============================================================================
 FROM nvidia/cuda:12.6.2-runtime-ubuntu22.04
 
 # Arguments for user ID, group ID, and code-server version.
@@ -12,7 +8,6 @@ ARG CODE_SERVER_VERSION=4.102.3
 # Prevent apt-get from asking questions.
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 💡 EGL FIX: Install the core EGL and OpenGL interface libraries.
 # PyOpenGL needs these to find and use the EGL backend provided by the NVIDIA driver.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -42,8 +37,7 @@ WORKDIR /app
 RUN conda tos accept
 
 # Create the Conda environment with Python and necessary build tools.
-#RUN conda create -p /opt/drl-env python=3.12.11 gxx_linux-64 swig -c conda-forge -y
-RUN conda create -p /opt/drl-env python=3.12 gxx_linux-64 swig -c conda-forge -y
+RUN conda create -p /opt/drl-env python=3.12.11 gxx_linux-64 swig -c conda-forge -y
 
 # Activate the Conda environment for all subsequent SHELL commands.
 SHELL ["conda", "run", "-p", "/opt/drl-env", "/bin/bash", "-c"]
@@ -99,7 +93,8 @@ RUN conda init bash && \
     echo "conda activate /opt/drl-env" >> /home/coder/.bashrc
 
 # Install extensions as the 'coder' user directly.
-RUN code-server --install-extension ms-python.black-formatter
+RUN code-server --install-extension ms-python.python && \
+    code-server --install-extension ms-python.black-formatter
 
 # Set the final working directory for the user.
 WORKDIR /home/coder/project
