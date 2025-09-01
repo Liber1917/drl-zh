@@ -242,7 +242,7 @@ def pettingzoo_connect4_play(player: AgentID, policy_callback: PolicyCallback = 
     _pettingzoo_game_loop(env, player, get_action, policy_callback)
 
 
-def check_grid_run(board: np.array, player: int, n: int = 3) -> bool:
+def check_grid_run(board: np.ndarray, player: int, n: int = 3) -> bool:
     """Check n-in-a-row patterns in a board for 'player'.
     Method used to check tic-tac-toe and connect-four winning scenarios."""
     rows, cols = board.shape
