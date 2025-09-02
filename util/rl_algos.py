@@ -149,10 +149,10 @@ _sentinel = object()
 class Experience(NamedTuple):
     """A single step / experience of an agent stored in the replay buffer."""
 
-    state: np.array
-    action: np.array
+    state: np.ndarray
+    action: np.ndarray
     reward: float
-    next_state: np.array
+    next_state: np.ndarray
     done: bool
 
 
