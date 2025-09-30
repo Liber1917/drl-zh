@@ -129,7 +129,7 @@ def compute_advantages_and_returns(
             td_error = rewards[t] + gamma * next_value * next_non_terminal - values[t]
             advantages[t] = td_error + gamma * gae_lambda * last_gae_lambda * next_non_terminal
             next_value = values[t]
-            last_gae_lambda = advantages[t] * next_non_terminal
+            last_gae_lambda = advantages[t]
         returns = advantages + values
     else:
         returns = torch.zeros_like(rewards).to(DEVICE)
