@@ -19,7 +19,9 @@ RUN apt-get update && \
     xz-utils \
     git \
     libgl1 \
-    libegl1 && \
+    libegl1 \
+    libglib2.0-0 \
+    libglib2.0-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and install Miniconda.
